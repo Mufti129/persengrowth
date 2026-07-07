@@ -12,6 +12,32 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# --- SISTEM LOGIN AKSES (PASSWORD PROTECTED) ---
+def check_password():
+    """Mengembalikan True jika pengguna memasukkan password yang benar."""
+    if "password_correct" not in st.session_state:
+        st.session_state["password_correct"] = False
+
+    if st.session_state["password_correct"]:
+        return True
+
+    st.center = st.columns([1, 2, 1])
+    with st.center[1]:
+        st.title("🔒 Akses Terbatas")
+        st.write("Silakan masukkan password untuk mengakses Dashboard PGI.")
+        
+        user_password = st.text_input("Password", type="password", placeholder="Masukkan password di sini")
+        
+        if st.button("Masuk"):
+            if user_password == "1juta$":
+                st.session_state["password_correct"] = True
+                st.rerun()
+            else:
+                st.error("❌ Password salah! Silakan hubungi Mukhammad Rekza Mufti (081536175933)- Data Analyst - Divisi Bisnis - Pusat Gadai Indonesia.")
+                
+        return False
+
+if check_password():
 
 st.title("Dashboard Geospasial: Analisis Determinasi & Growth Omzet")
 st.markdown("Visualisasi sebaran cabang berdasarkan berbagai metode segmentasi statistik.")
